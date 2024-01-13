@@ -1,1 +1,6 @@
+res://3dtest.tscn
+res://CharacterBody3D.gd
 res://main.tscn
+res://3dtest.gd
+res://Collider.tscn
+res://RayCast3D.gd

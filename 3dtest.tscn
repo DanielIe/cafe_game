@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://cprv8xlfnkjgb"]
+
+[ext_resource type="Script" path="res://3dtest.gd" id="1_8if0q"]
+[ext_resource type="PackedScene" uid="uid://c14ulumfw0epg" path="res://Models/AmpRack_01.dae" id="1_yetch"]
+[ext_resource type="PackedScene" uid="uid://b2kbfr1thpwk8" path="res://Models/Barrel_01.dae" id="3_lrvf4"]
+[ext_resource type="Script" path="res://CharacterBody3D.gd" id="4_gmf3j"]
+[ext_resource type="ArrayMesh" uid="uid://dqcgxy5delrvx" path="res://GG Bond/GGboy.obj" id="5_o2tyd"]
+[ext_resource type="Script" path="res://RayCast3D.gd" id="6_onn7g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pb1gn"]
+size = Vector3(15.3139, 1, 17.0992)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wogqs"]
+radius = 0.22276
+height = 0.903712
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_8if0q")
+x_width = 3
+y_width = 3
+z_width = 3
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, 0.5, -0.5, 0, 2.75683, 0)
+projection = 1
+size = 8.0
+
+[node name="Assets" type="Node" parent="."]
+
+[node name="AmpRack_01" parent="Assets" instance=ExtResource("1_yetch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+
+[node name="Barrel_01" parent="Assets" instance=ExtResource("3_lrvf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.34213, 0, 0.701372)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.326, -1, 2.015)
+shape = SubResource("BoxShape3D_pb1gn")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 1, 0)
+script = ExtResource("4_gmf3j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_wogqs")
+
+[node name="GGboy" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(-0.176777, 0, -0.176777, 0, 0.25, 0, 0.176777, 0, -0.176777, 0, 0, 0)
+mesh = ExtResource("5_o2tyd")
+skeleton = NodePath("../..")
+
+[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D/GGboy"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 1.99937, 0)
+target_position = Vector3(0, -0.3, 0.5)
+script = ExtResource("6_onn7g")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0)

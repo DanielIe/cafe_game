@@ -1,1 +1,10 @@
+RayCast3D
+CollisionShape3D
+StaticBody3D
+DirectionalLight3D
+DirectionalLight2D
+MeshInstance3D
+CharacterBody3D
+Node
+Camera3D
 Sprite2D
